@@ -1,6 +1,6 @@
 package service
 
-import log "core/logManager"
+import log "github.com/PanDa30ss/core/logManager"
 
 type IModule interface {
 	Init()

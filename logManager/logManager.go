@@ -1,7 +1,6 @@
 package logManager
 
 import (
-	// "core/service"
 	"os"
 	"sync"
 	"time"
