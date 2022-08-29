@@ -1,8 +1,9 @@
 package tcp
 
 import (
-	log "core/logManager"
 	"net"
+
+	log "github.com/PanDa30ss/core/logManager"
 )
 
 type ISessionC interface {

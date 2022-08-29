@@ -1,10 +1,11 @@
 package tcp
 
 import (
-	log "core/logManager"
-	"core/service"
 	"net"
 	"time"
+
+	log "github.com/PanDa30ss/core/logManager"
+	"github.com/PanDa30ss/core/service"
 )
 
 type acceptor struct {

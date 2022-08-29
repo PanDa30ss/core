@@ -1,8 +1,9 @@
 package timeUtil
 
 import (
-	"core/service"
 	"time"
+
+	"github.com/PanDa30ss/core/service"
 )
 
 func MakeTimer(d time.Duration, f func(params ...interface{}), params ...interface{}) *time.Timer {

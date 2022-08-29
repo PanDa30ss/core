@@ -1,9 +1,10 @@
 package http
 
 import (
-	"core/service"
 	"net/http"
 	"time"
+
+	"github.com/PanDa30ss/core/service"
 )
 
 type httpHandler struct {

@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	log "core/logManager"
-	"core/service"
+	log "github.com/PanDa30ss/core/logManager"
+	"github.com/PanDa30ss/core/service"
 
 	_ "github.com/go-sql-driver/mysql"
 	// "github.com/jmoiron/sqlx"

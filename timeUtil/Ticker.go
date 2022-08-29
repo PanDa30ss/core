@@ -1,8 +1,9 @@
 package timeUtil
 
 import (
-	"core/service"
 	"time"
+
+	"github.com/PanDa30ss/core/service"
 )
 
 type Ticker struct {

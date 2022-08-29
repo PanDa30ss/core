@@ -1,6 +1,6 @@
 package tcp
 
-import "core/message"
+import "github.com/PanDa30ss/core/message"
 
 type PingReq struct {
 	message.Package

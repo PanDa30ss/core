@@ -2,9 +2,10 @@ package tcp
 
 import (
 	"container/list"
-	"core/service"
 	"sync"
 	"time"
+
+	"github.com/PanDa30ss/core/service"
 )
 
 // "service"

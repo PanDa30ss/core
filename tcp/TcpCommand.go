@@ -1,7 +1,7 @@
 package tcp
 
 import (
-	"core/service"
+	"github.com/PanDa30ss/core/service"
 )
 
 type tcpOpenCommand struct {

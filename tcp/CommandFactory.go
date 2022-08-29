@@ -1,7 +1,7 @@
 package tcp
 
 import (
-	"core/message"
+	"github.com/PanDa30ss/core/message"
 )
 
 type cmdFunc func(s ISession, msg *message.Message) bool

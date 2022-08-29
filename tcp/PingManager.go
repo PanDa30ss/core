@@ -1,8 +1,9 @@
 package tcp
 
 import (
-	"core/message"
 	"time"
+
+	"github.com/PanDa30ss/core/message"
 )
 
 type pingManager struct {

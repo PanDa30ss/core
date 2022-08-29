@@ -1,12 +1,13 @@
 package tcp
 
 import (
-	log "core/logManager"
-	"core/message"
-	"core/service"
 	"encoding/binary"
 	"io"
 	"net"
+
+	log "github.com/PanDa30ss/core/logManager"
+	"github.com/PanDa30ss/core/message"
+	"github.com/PanDa30ss/core/service"
 )
 
 type ISession interface {

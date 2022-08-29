@@ -1,9 +1,10 @@
 package http
 
 import (
-	log "core/logManager"
 	"net/http"
 	"time"
+
+	log "github.com/PanDa30ss/core/logManager"
 )
 
 type HttpServer struct {
