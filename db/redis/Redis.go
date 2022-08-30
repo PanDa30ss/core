@@ -26,15 +26,19 @@ func (this *Redis) InitDB() {
 	this.isOpen = false
 
 }
+
 func (this *Redis) SetUrl(url string) {
 	this.url = url
 }
+
 func (this *Redis) SetMaxConn(maxConn int) {
 	this.maxConn = maxConn
 }
+
 func (this *Redis) SetMaxIdle(maxIdle int) {
 	this.maxIdle = maxIdle
 }
+
 func (this *Redis) Open() bool {
 	if this.url == "" {
 		return false
@@ -52,9 +56,18 @@ func (this *Redis) Open() bool {
 	log.Info("redis open")
 	return true
 }
+
+func (this *Redis) Close() {
+	if this.db == nil {
+		return
+	}
+	this.db.Close()
+}
+
 func (this *Redis) Query(cmd *redisCommand, op string, params ...interface{}) {
 	go this.doQuery(cmd, op, params...)
 }
+
 func (this *Redis) doQuery(cmd *redisCommand, op string, params ...interface{}) {
 	c := this.db.Get()
 	defer c.Close()

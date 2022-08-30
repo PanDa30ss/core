@@ -55,6 +55,13 @@ func (this *Mysql) Open() bool {
 	return true
 }
 
+func (this *Mysql) Close() {
+	if this.db == nil {
+		return
+	}
+	this.db.Close()
+}
+
 func (this *Mysql) Query(cmd *mysqlCommand, query string) {
 	if !this.isOpen {
 		return
