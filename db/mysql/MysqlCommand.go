@@ -14,3 +14,10 @@ func (this *mysqlCommand) Execute() {
 	this.callback(this.result, this.params...)
 	this.result.Result.Close()
 }
+
+func MakeMysqlCommand(callback MysqlCallBack, params ...interface{}) *mysqlCommand {
+	ret := &mysqlCommand{}
+	ret.callback = callback
+	ret.params = params
+	return ret
+}

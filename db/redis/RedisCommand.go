@@ -16,3 +16,10 @@ func (this *redisCommand) Execute() {
 
 func defaultFunc(result *RedisResult, params ...interface{}) {
 }
+
+func MakeRedisCommand(callback RedisCallBack, params ...interface{}) *redisCommand {
+	ret := &redisCommand{}
+	ret.callback = callback
+	ret.params = params
+	return ret
+}

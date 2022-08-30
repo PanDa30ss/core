@@ -88,3 +88,18 @@ func (this *Redis) doQuery(cmd *redisCommand, op string, params ...interface{}) 
 // 	cmd.result = &RedisResult{err, ret}
 // 	service.Post(cmd)
 // }
+
+func Strings(reply interface{}) ([]string, error) {
+	var err error
+	return redis.Strings(reply, err)
+}
+
+func Ints(reply interface{}) ([]int, error) {
+	var err error
+	return redis.Ints(reply, err)
+}
+
+func Int(reply interface{}) (int, error) {
+	var err error
+	return redis.Int(reply, err)
+}

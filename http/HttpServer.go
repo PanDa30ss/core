@@ -68,3 +68,7 @@ func (this *HttpServer) CallFunc(context *HttpContext) {
 	}
 	// this.handleHandleFuncs[url](context)
 }
+
+func MakeHttpServer() *HttpServer {
+	return &HttpServer{handleHandleFuncs: make(map[string]HttpHandleFunc)}
+}
