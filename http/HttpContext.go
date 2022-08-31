@@ -21,6 +21,7 @@ func (this *HttpContext) Write(buff []byte) {
 func (this *HttpContext) Done() chan bool {
 	return this.done
 }
+
 func (this *HttpContext) Finish() {
 
 	close(this.done)
