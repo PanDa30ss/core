@@ -10,6 +10,10 @@ type HttpContext struct {
 	r    *http.Request
 }
 
+func (this *HttpContext) GetRequest() *http.Request {
+	return this.r
+}
+
 func (this *HttpContext) Write(buff []byte) {
 	this.w.Write(buff)
 }
@@ -17,6 +21,7 @@ func (this *HttpContext) Write(buff []byte) {
 func (this *HttpContext) Done() chan bool {
 	return this.done
 }
+
 func (this *HttpContext) Finish() {
 
 	close(this.done)
