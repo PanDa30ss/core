@@ -10,6 +10,10 @@ type HttpContext struct {
 	r    *http.Request
 }
 
+func (this *HttpContext) GetRequest() *http.Request {
+	return this.r
+}
+
 func (this *HttpContext) Write(buff []byte) {
 	this.w.Write(buff)
 }
