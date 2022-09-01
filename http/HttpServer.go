@@ -62,7 +62,7 @@ func (this *HttpServer) CallFunc(context *HttpContext) {
 			context.Finish()
 		}
 	}()
-	url := context.r.RequestURI
+	url := context.r.URL.Path
 	if _, ok := this.handleHandleFuncs[url]; ok {
 		this.handleHandleFuncs[url](context)
 	}
