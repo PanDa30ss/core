@@ -46,6 +46,7 @@ func doPost(url string, data string, contentType string, f func(result *HttpResu
 	if err != nil {
 		ret.Err = err
 		service.Post(callback)
+		return
 	}
 	defer resp.Body.Close()
 
