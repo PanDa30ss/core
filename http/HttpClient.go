@@ -18,6 +18,8 @@ func Get(url string, f func(result *HttpResult, params ...interface{}), params .
 func doGet(url string, f func(result *HttpResult, params ...interface{}), params ...interface{}) {
 	client := &http.Client{Timeout: HTTP_CLIENT_TIMEOUT * time.Second}
 	resp, err := client.Get(url)
+	defer resp.Body.Close()
+
 	ret := &HttpResult{}
 	callback := makeHttpCallback(f, params...)
 	callback.result = ret
@@ -26,7 +28,6 @@ func doGet(url string, f func(result *HttpResult, params ...interface{}), params
 		service.GoPost(callback)
 		return
 	}
-	defer resp.Body.Close()
 	result, readErr := ioutil.ReadAll(resp.Body)
 	ret.Err = readErr
 	ret.Result = string(result)
@@ -40,6 +41,7 @@ func Post(url string, data string, contentType string, f func(result *HttpResult
 func doPost(url string, data string, contentType string, f func(result *HttpResult, params ...interface{}), params ...interface{}) {
 	client := &http.Client{Timeout: HTTP_CLIENT_TIMEOUT * time.Second}
 	resp, err := client.Post(url, contentType, bytes.NewBuffer([]byte(data)))
+	defer resp.Body.Close()
 	ret := &HttpResult{}
 	callback := makeHttpCallback(f, params...)
 	callback.result = ret
@@ -48,7 +50,6 @@ func doPost(url string, data string, contentType string, f func(result *HttpResu
 		service.Post(callback)
 		return
 	}
-	defer resp.Body.Close()
 
 	result, readErr := ioutil.ReadAll(resp.Body)
 	ret.Err = readErr
