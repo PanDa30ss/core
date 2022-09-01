@@ -2,7 +2,6 @@ package http
 
 import (
 	"bytes"
-	"io"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -28,21 +27,9 @@ func doGet(url string, f func(result *HttpResult, params ...interface{}), params
 		return
 	}
 	defer resp.Body.Close()
-	var buffer [512]byte
-	result := bytes.NewBuffer(nil)
-	for {
-		n, err := resp.Body.Read(buffer[0:])
-		result.Write(buffer[0:n])
-		if err != nil && err == io.EOF {
-			break
-		} else if err != nil {
-			ret.Err = err
-			service.Post(callback)
-			return
-		}
-	}
-	ret.Err = err
-	ret.Result = result.String()
+	result, readErr := ioutil.ReadAll(resp.Body)
+	ret.Err = readErr
+	ret.Result = string(result)
 	service.Post(callback)
 }
 
