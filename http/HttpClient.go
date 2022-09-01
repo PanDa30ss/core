@@ -23,7 +23,7 @@ func doGet(url string, f func(result *HttpResult, params ...interface{}), params
 	callback.result = ret
 	if err != nil {
 		ret.Err = err
-		service.Post(callback)
+		service.GoPost(callback)
 		return
 	}
 	defer resp.Body.Close()

@@ -118,10 +118,15 @@ func Stop() {
 	getInstance().stop()
 }
 
-func Post(cmd ICommand) {
+func GoPost(cmd ICommand) {
 	go func() {
 		getInstance().cmdChan <- cmd
 	}()
+	// getInstance().queue.enQueue(cmd)
+}
+
+func Post(cmd ICommand) {
+	getInstance().cmdChan <- cmd
 	// getInstance().queue.enQueue(cmd)
 }
 

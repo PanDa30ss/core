@@ -124,7 +124,7 @@ func (this *SessionCBank) goSessionRun(session ISessionC) {
 		case Connected:
 			{
 				if session.open() {
-					service.Post(makeSessionOpenCommand(session))
+					service.GoPost(makeSessionOpenCommand(session))
 				} else {
 					session.close()
 				}
@@ -132,12 +132,12 @@ func (this *SessionCBank) goSessionRun(session ISessionC) {
 		case Open:
 			if !session.run() {
 				session.close()
-				service.Post(makeSessionCloseCommand(session))
+				service.GoPost(makeSessionCloseCommand(session))
 			}
 		}
 		time.Sleep(time.Millisecond * 500)
 	}
 
 	session.close()
-	service.Post(makeSessionCloseCommand(session))
+	service.GoPost(makeSessionCloseCommand(session))
 }

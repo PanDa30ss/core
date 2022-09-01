@@ -35,7 +35,7 @@ func (this *acceptor) start() {
 				session.close()
 				return
 			}
-			service.Post(makeSessionOpenCommand(session))
+			service.GoPost(makeSessionOpenCommand(session))
 			go this.goSessionRun(session)
 		}
 
