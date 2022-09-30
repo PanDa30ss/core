@@ -3,7 +3,8 @@ package service
 import (
 	"sync"
 	"sync/atomic"
-	"time"
+
+	// "time"
 	"unsafe"
 )
 
@@ -16,7 +17,7 @@ type Queue struct {
 	head unsafe.Pointer
 	tail unsafe.Pointer
 	sema uint32
-	wg   *sync.WaitGroup
+	cond sync.Cond
 }
 
 // one node in queue
@@ -35,7 +36,9 @@ func (self *Queue) enQueue(cmd ICommand) {
 		if next != nil {
 			atomic.CompareAndSwapPointer(&(self.tail), tail, next)
 		} else if atomic.CompareAndSwapPointer(&((*Node)(tail).next), nil, newValue) {
-
+			self.cond.L.Lock()
+			self.cond.Signal()
+			self.cond.L.Unlock()
 			break
 		}
 	}
@@ -49,7 +52,7 @@ func (self *Queue) deQueue() (cmd ICommand) {
 		next = ((*Node)(head)).next
 		if head == tail {
 			if next == nil {
-				time.Sleep(100 * time.Microsecond)
+				self.cond.Wait()
 			} else {
 				atomic.CompareAndSwapPointer(&(self.tail), tail, next)
 			}
@@ -66,6 +69,7 @@ func makeQueue() *Queue {
 	queue := new(Queue)
 	queue.head = unsafe.Pointer(new(Node))
 	queue.tail = queue.head
-	queue.wg = nil
+	var mutex sync.Mutex
+	queue.cond = sync.Cond{L: &mutex}
 	return queue
 }
