@@ -3,6 +3,8 @@ package service
 import (
 	"sync"
 	"time"
+
+	log "github.com/PanDa30ss/core/logManager"
 )
 
 // var serviceQueueLen uint32 = 0x10000
@@ -120,6 +122,11 @@ func Stop() {
 
 func GoPost(cmd ICommand) {
 	go func() {
+		defer func() {
+			if e := recover(); e != nil {
+				log.Info(e)
+			}
+		}()
 		getInstance().cmdChan <- cmd
 	}()
 	// getInstance().queue.enQueue(cmd)

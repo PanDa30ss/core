@@ -172,15 +172,9 @@ func (this *Session) SendMessage(msg *message.Message) {
 }
 
 func (this *Session) ParseMessage(msg *message.Message) (result bool) {
-	defer func() {
-		if e := recover(); e != nil {
-			log.Info(e)
-			result = false
-		}
-	}()
-	result = this.factory.funcs[msg.ID()](this.instance, msg)
+
 	this.pingManager.onPing()
-	return result
+	return this.factory.funcs[msg.ID()](this.instance, msg)
 }
 
 func (this *Session) CallParseMessage(data []byte) {
