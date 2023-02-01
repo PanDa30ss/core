@@ -3,8 +3,6 @@ package http
 import (
 	"net/http"
 	"time"
-
-	log "github.com/PanDa30ss/core/logManager"
 )
 
 type HttpServer struct {
@@ -56,12 +54,7 @@ func (this *HttpServer) Register(url string, handleFunc HttpHandleFunc) bool {
 }
 
 func (this *HttpServer) CallFunc(context *HttpContext) {
-	defer func() {
-		if e := recover(); e != nil {
-			log.Info(e)
-			context.Finish()
-		}
-	}()
+
 	url := context.r.URL.Path
 	if _, ok := this.handleHandleFuncs[url]; ok {
 		this.handleHandleFuncs[url](context)

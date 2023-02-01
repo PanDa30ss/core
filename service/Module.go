@@ -11,6 +11,7 @@ type IModule interface {
 	SetStart(started bool)
 	GetName() string
 	SetName(name string)
+	Initial()
 }
 
 type Module struct {
@@ -25,6 +26,11 @@ func (this *Module) Init() {
 func (this *Module) Start() bool {
 	log.Info("Module Start", this.GetName())
 	return true
+}
+
+func (this *Module) Initial() {
+	log.Info("Module Initial", this.GetName())
+	return
 }
 
 func (this *Module) CheckStart() bool {

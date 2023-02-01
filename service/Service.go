@@ -38,7 +38,7 @@ func (this *service) goRun() {
 	for {
 		select {
 		case cmd := <-this.cmdChan:
-			cmd.(ICommand).Execute()
+			this.executeCmd(cmd.(ICommand))
 		}
 
 	}
@@ -46,6 +46,15 @@ func (this *service) goRun() {
 	// 	cmd := this.queue.deQueue()
 	// 	cmd.Execute()
 	// }
+}
+
+func (this *service) executeCmd(cmd ICommand) {
+	defer func() {
+		if e := recover(); e != nil {
+			log.Info(e)
+		}
+	}()
+	cmd.Execute()
 }
 
 func (this *service) init() {
@@ -71,6 +80,7 @@ func (this *service) start() bool {
 					if !m.CheckStart() {
 						continue
 					}
+					m.Initial()
 					if !m.Start() {
 						return false
 					}
