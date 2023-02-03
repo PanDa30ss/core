@@ -23,8 +23,13 @@ func (this *HttpContext) Done() chan bool {
 }
 
 func (this *HttpContext) Finish() {
+	select {
+	case <-this.done:
+		return
+	default:
+		close(this.done)
+	}
 
-	close(this.done)
 }
 
 func makeHttpContext(w http.ResponseWriter, r *http.Request) *HttpContext {
