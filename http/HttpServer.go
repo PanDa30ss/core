@@ -24,9 +24,7 @@ func (this *HttpServer) Init(address string, opts ...string) {
 	var param *httpParams = &httpParams{}
 	param.serveMux = http.NewServeMux()
 	param.address = address
-	for url, _ := range this.handleHandleFuncs {
-		param.serveMux.Handle(url, &httpHandler{dt: time.Second * 10, server: this})
-	}
+
 	if len(opts) == 0 {
 		this.httpParam = param
 	} else {
@@ -39,9 +37,15 @@ func (this *HttpServer) Init(address string, opts ...string) {
 
 func (this *HttpServer) Start() bool {
 	if this.httpParam != nil {
+		for url, _ := range this.handleHandleFuncs {
+			this.httpParam.serveMux.Handle(url, &httpHandler{dt: time.Second * 10, server: this})
+		}
 		go http.ListenAndServe(this.httpParam.address, this.httpParam.serveMux)
 	}
 	if this.httpsParam != nil {
+		for url, _ := range this.handleHandleFuncs {
+			this.httpParam.serveMux.Handle(url, &httpHandler{dt: time.Second * 10, server: this})
+		}
 		go http.ListenAndServeTLS(this.httpsParam.address, this.httpsParam.certFile, this.httpsParam.keyFile, this.httpsParam.serveMux)
 	}
 	return true

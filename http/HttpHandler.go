@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -13,6 +14,7 @@ type httpHandler struct {
 }
 
 func (this *httpHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(2222)
 	context := makeHttpContext(w, r)
 	var cmd = httpCommand{context, this.server}
 	service.Post(&cmd)

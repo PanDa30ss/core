@@ -74,18 +74,40 @@ func (this *service) start() bool {
 		default:
 			{
 				for _, m := range this.modules {
-					if m.IsStarted() {
+					if m.IsInitialed() {
 						continue
 					}
-					if !m.CheckStart() {
+					if !m.CheckInitial(this.modules) {
 						continue
 					}
 					m.Initial()
+
+					m.SetInitial(true)
+					num++
+				}
+			}
+		}
+	}
+	startTimer := time.NewTimer(3 * time.Second)
+	startNum := 0
+	for startNum < len(this.modules) {
+		select {
+		case <-startTimer.C:
+			return false
+		default:
+			{
+				for _, m := range this.modules {
+					if m.IsStarted() {
+						continue
+					}
+					if !m.CheckStart(this.modules) {
+						continue
+					}
 					if !m.Start() {
 						return false
 					}
 					m.SetStart(true)
-					num++
+					startNum++
 				}
 			}
 		}
